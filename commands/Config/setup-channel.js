@@ -20,9 +20,7 @@ module.exports = {
 
         const channel = interaction.options.getChannel('channel');
 
-        if (channel.type !== 0) {
-            return interaction.reply({ content: `You can only set a text channel as the feed channel.`, ephemeral: true });
-        };
+        if (![1, 5].includes(channel.type)) return interaction.reply({ content: 'You can only set a text channel as the feed channel.', ephemeral: true });
 
         const dbGuild = await db.get(`${interaction.guildId}`);
 

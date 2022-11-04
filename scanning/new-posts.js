@@ -1,12 +1,12 @@
 config = require('../config.json');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ChannelType, Message, messageLink } = require('discord.js');
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 function truncate(str, n) {
     /* Truncate a string */
-    return (str.length > n) ? str.slice(0, n - 1) + '&hellip;' : str;
+    return (str.length > n) ? str.slice(0, n - 1) : str;
 };
 
 function sleep(ms) {
@@ -39,6 +39,7 @@ async function getPosts() {
         .then(data => data.data.children.map(post => post.data.created));
 
     final = postsIdData.map((id, index) => ({ id, time: postsTimeData[index] }));
+
     // Return the posts
     return final
 };
@@ -108,7 +109,12 @@ async function checkNewPosts(guildID, client, channelsArray) {
                         // Get the channel
                         await client.channels.fetch(channel).then(async (channelToSend) => {
                             // Send the embed
-                            await channelToSend.send({ embeds: [embed] });
+                            await channelToSend.send({ embeds: [embed] }).then(message => {
+                                if(channelToSend.type === 5) {
+                                    message.crosspost();
+                                };
+                                
+                            });
                         });
                         
                         await sleep(config.sleep);
@@ -117,8 +123,6 @@ async function checkNewPosts(guildID, client, channelsArray) {
                     };
                 };
             };
-
-            //TODO : si salon annonce poster message dans salon annonce
 
             // Set the last post
             await db.set("lastPost", post);

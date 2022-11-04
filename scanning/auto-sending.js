@@ -7,7 +7,7 @@ async function autoSendPosts(client) {
 
     setInterval(async () => {
 
-        console.log('Checking for new posts...');
+        console.log(Date.now() + ' | Checking for new posts...');
 
         const data = await db.all();
 
@@ -23,7 +23,6 @@ async function autoSendPosts(client) {
         
         new_posts.checkNewPosts("no_guild", client, channels);
     }, 20000);
-
 };
 
 module.exports = { autoSendPosts };
