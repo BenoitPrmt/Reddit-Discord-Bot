@@ -124,8 +124,10 @@ async function checkNewPosts(guildID, client, channelsArray) {
                 };
             };
 
+            //TODO : si salon annonce poster message dans salon annonce
+
             // Set the last post
-            await db.set("lastPost", post);
+            // await db.set("lastPost", post);
         };
     };
 };

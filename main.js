@@ -3,6 +3,7 @@ const { QuickDB } = require("quick.db");
 const db = new QuickDB();
 
 const new_posts = require('./scanning/new-posts');
+const { BOT_TOKEN } = require('./token.json');
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.DirectMessages]
@@ -63,4 +64,4 @@ const loadEvents = (dir = './events/') => {
 loadEvents();
 
 // LOGIN
-client.login(BOT_TOKEN_HERE);
+client.login(BOT_TOKEN);

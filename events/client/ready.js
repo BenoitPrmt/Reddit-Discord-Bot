@@ -7,9 +7,11 @@ const { Routes } = require('discord-api-types/v9');
 const commands = require('../../main.js');
 const auto_sending = require('../../scanning/auto-sending.js');
 
+const { BOT_TOKEN } = require('../../token.json');
+
 module.exports = async (client, message, guild) => {
 
-    TOKEN = BOT_TOKEN_HERE;
+    TOKEN = BOT_TOKEN;
     TEST_GUILD_ID = ''
 
     console.log('[SLASH] - Registing commands...');
