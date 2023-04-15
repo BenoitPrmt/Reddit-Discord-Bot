@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, ChannelType } = require('discord.js');
 const config = require('../../config.json');
 
 const { QuickDB } = require("quick.db");
@@ -20,7 +20,7 @@ module.exports = {
 
         const channel = interaction.options.getChannel('channel');
 
-        if (![1, 5].includes(channel.type)) return interaction.reply({ content: 'You can only set a text channel as the feed channel.', ephemeral: true });
+        if (![0, 5].includes(channel.type)) return interaction.reply({ content: 'You can only set a text channel as the feed channel.', ephemeral: true });
 
         const dbGuild = await db.get(`${interaction.guildId}`);
 
